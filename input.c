@@ -74,7 +74,7 @@ extern bool v_str(const str v, str m) {
     return true; //ritorno true alla fine per indicare che tutti i caratteri sono uguali
 }
 
-//funzione linea
+//funzione riga per rigar
 
 extern str ln(const str s) {
     if (!s) { //se la stringa è nulla
@@ -108,7 +108,7 @@ extern str ln(const str s) {
         position = i + 1; //assegno la posizione del carattere
     }
     buffer[i] = '\0'; //carattere terminatore della stringa
-    return buffer; //ritorno i vari caratteri del file
+    return buffer; //ritorno riga per riga (chiamando più volte la funzione)
 }
 
 //funzione lunghezza

@@ -47,16 +47,16 @@ int main(void) {
     int arr[n]; //creo un array di n elementi
     for (int j = 0; j < n; j++) { //ciclo for per popolare l'array
         arr[j] = i(s_in("Inserisci l'elemento %d: ", j + 1));
-        printf("%d\n", arr[j]);
+        printf("%d\n", arr[j]); //stampo l'elemento
     }
     f = fopen("test_line.txt", "r"); //apro il file
     file_string = f_in(f); //leggo il contenuto del file e lo assegno ad una stringa
     fclose(f); //chiudo il file
-    str line = ln(file_string); //funzione per stampare linea per linea la stringa
-    printf("%s\n", line); //stampo la prima linea
+    str line = ln(file_string); //funzione per stampare riga per riga la stringa
+    printf("%s\n", line); //stampo la prima riga
     line = ln(file_string); //richiamo la funzione
-    printf("%s\n", line); //stampo la seconda linea
+    printf("%s\n", line); //stampo la seconda riga
     line = ln(file_string); //richiamo la funzione
-    printf("%s\n", line); //stampo la terza linea
+    printf("%s\n", line); //stampo la terza riga
     return 0;
 }
