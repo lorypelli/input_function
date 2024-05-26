@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdarg.h>
 
@@ -23,12 +24,12 @@ static unsigned long long position = 0;
 
 //prototipi delle funzioni
 
-static str input(void *, str, va_list);
+static str input(FILE *, str, va_list);
 extern bool v_str(const str, str);
 extern str ln(const str);
 extern unsigned long long len(const str);
 extern void c_str(str, const int, const char);
-extern str in(void *, str, ...);
+extern str in(FILE *, str, ...);
 extern char c(const str);
 extern int i(const str);
 extern long l(const str);

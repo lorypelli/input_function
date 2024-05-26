@@ -1,11 +1,10 @@
-#include <stdio.h>
 #include <stdlib.h>
 
 #include "input.h"
 
 //funzione input
 
-static str input(void *f, str m, va_list args) {
+static str input(FILE *f, str m, va_list args) {
     if (m && f && f != stdin) { //se il messaggio e il file non sono nulli
         #ifndef SUPPRESS_WARNINGS
         printf("You provided a file and a message, but the message will be ignored\n");
@@ -139,7 +138,7 @@ extern void c_str(str s, const int p, const char c) {
 
 //funzione stringa
 
-extern str in(void *f, str s, ...) {
+extern str in(FILE *f, str s, ...) {
     va_list args; //creo una lista di argomenti
     va_start(args, s); //avvio la lista
     if (!s && (!f || f == stdin)) { //se la stringa e il file sono nulli
