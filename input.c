@@ -122,7 +122,7 @@ extern unsigned long long len(const str s) {
         fprintf(stderr, "EOF Reached\n");
         return '\0'; //ritorno il carattere nullo
     }
-    long long local_length = length; //assegno la lunghezza ad una variabile locale
+    unsigned long long local_length = length; //assegno la lunghezza ad una variabile locale
     length = -1; //assegno -1 alla variabile lunghezza globale in quanto la funzione può essere usata solo una volta dopo l'input
     return local_length; //ritorno la lunghezza della stringa
 }

@@ -36,7 +36,7 @@ int main(void) {
     str file_string = f_in(f); //leggo il contenuto del file e lo assegno ad una stringa
     fclose(f); //chiudo il file
     printf("%s\n", file_string); //stampo la stringa
-    printf("Length: %lli\n", len(file_string)); //stampo la lunghezza della stringa
+    printf("Length: %llu\n", len(file_string)); //stampo la lunghezza della stringa
     char file_character = c(file_string); //transformo in carattere il file
     printf("%c\n", file_character); //stampo il carattere
     int p = i(s_in("Inserisci la posizione del carattere: ")); //chiedo all'utente di inserire la posizione del carattere
