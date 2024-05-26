@@ -122,7 +122,7 @@ extern unsigned long long len(const str s) {
         return '\0'; //ritorno il carattere nullo
     }
     unsigned long long local_length = length; //assegno la lunghezza ad una variabile locale
-    length = -1; //assegno -1 alla variabile lunghezza globale in quanto la funzione può essere usata solo una volta dopo l'input
+    length = -1; //assegno -1 alla variabile globale lunghezza
     return local_length; //ritorno la lunghezza della stringa
 }
 
@@ -147,7 +147,7 @@ extern str in(FILE *f, str s, ...) {
     }
     str res = input(f, s, args); //chiamo la funzione input
     va_end(args); //interrompo la lista
-    return res; //chiamo il risultato
+    return res; //ritorno il risultato
 }
 
 //funzione carattere
@@ -157,7 +157,10 @@ extern char c(const str s) {
         fprintf(stderr, "String is NULL\n");
         return '\0'; //ritorno il carattere nullo
     }
-    return s[0]; //ritorno il primo carattere dell'array
+    char res = s[0]; //primo carattere dell'array
+    free(s); //libero la memoria
+    length = -1; //assegno -1 alla variabile globale lunghezza
+    return res; //ritorno il risultato
 }
 
 //funzione intero
@@ -167,7 +170,10 @@ extern int i(const str s) {
         fprintf(stderr, "String is NULL\n");
         return '\0'; //ritorno il carattere nullo
     }
-    return atoi(s); //converto in int
+    int res = atoi(s); //converto in int
+    free(s); //libero la memoria
+    length = -1; //assegno -1 alla variabile globale lunghezza
+    return res; //ritorno il risultato
 }
 
 //funzione intero lungo
@@ -177,7 +183,10 @@ extern long l(const str s) {
         fprintf(stderr, "String is NULL\n");
         return '\0'; //ritorno il carattere nullo
     }
-    return atol(s); //converto in long
+    long res = atol(s); //converto in long
+    free(s); //libero la memoria
+    length = -1; //assegno -1 alla variabile globale lunghezza
+    return res; //ritorno il risultato
 }
 
 //funzione intero lungo lungo
@@ -187,7 +196,10 @@ extern long long ll(const str s) {
         fprintf(stderr, "String is NULL\n");
         return '\0'; //ritorno il carattere nullo
     }
-    return atoll(s); //converto in long long
+    long long res = atoll(s); //converto in long long
+    free(s); //libero la memoria
+    length = -1; //assegno -1 alla variabile globale lunghezza
+    return res; //ritorno il risultato
 }
 
 //funzione decimale
@@ -197,7 +209,10 @@ extern float f(const str s) {
         fprintf(stderr, "String is NULL\n");
         return '\0'; //ritorno il carattere nullo
     }
-    return atof(s); //converto in float
+    float res = atof(s); //converto in float
+    free(s); //libero la memoria
+    length = -1; //assegno -1 alla variabile globale lunghezza
+    return res; //ritorno il risultato
 }
 
 //funzione decimale doppio
@@ -207,5 +222,8 @@ extern double d(const str s) {
         fprintf(stderr, "String is NULL\n");
         return '\0'; //ritorno il carattere nullo
     }
-    return atof(s); //converto in double
+    double res = atof(s); //converto in double
+    free(s); //libero la memoria
+    length = -1; //assegno -1 alla variabile globale lunghezza
+    return res; //ritorno il risultato
 }
