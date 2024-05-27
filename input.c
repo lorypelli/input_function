@@ -80,6 +80,13 @@ extern str ln(const str s) {
         fprintf(stderr, "String is NULL\n");
         return "\0"; //ritorno il carattere nullo
     }
+    if (string && s != string) { //se la variabile globale stringa non è nulla e le due stringhe puntano ad indirizzi di memoria differenti
+        #ifndef SUPPRESS_WARNINGS
+        printf("You provided a string that is different from the one you started the function with, position will be set back to 0\n");
+        printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
+        #endif
+        position = 0; //la posizione torna ad essere 0
+    }
     size_t buffer_size = 4; //dimensione buffer
     str buffer = malloc(sizeof(char) * buffer_size); //creo un array di caratteri allocando dinamicamente la memoria
     if (!buffer) { //controllo se è nullo
@@ -102,11 +109,15 @@ extern str ln(const str s) {
     }
     if (!s[i]) { //se la stringa è finita
         position = 0; //la posizione torna ad essere 0
+        string = NULL; //la variabile globale stringa diventa nulla
     }
-    else {
+    else if (!string || s == string) { //se la variabile globale stringa è nulla o i due indirizzi di memoria sono uguali
         position = i + 1; //assegno la posizione del carattere
     }
     buffer[i] = '\0'; //carattere terminatore della stringa
+    if (!string || s == string) { //se la variabile globale stringa è nulla o i due indirizzi di memoria sono uguali
+        string = s; //assegno la variabile globale stringa
+    }
     return buffer; //ritorno riga per riga (chiamando più volte la funzione)
 }
 

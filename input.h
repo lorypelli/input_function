@@ -14,6 +14,10 @@
 
 typedef char *str;
 
+//puntatore stringa
+
+static str string = NULL;
+
 //lunghezza stringa
 
 static long long length = 0;
