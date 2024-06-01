@@ -30,7 +30,7 @@ static str input(FILE *f, str m, va_list args) {
         return "\0"; //ritorno il carattere nullo
     }
     int c = fgetc(f); //prendo un carattere dal file
-    unsigned long long i = 0; //contatore
+    size_t i = 0; //contatore
     for (i = 0; f == stdin ? c != '\n' : !feof(f); i++) { //ciclo for per i vari caratteri
         buffer[i] = c; //assegno il carattere alla sua posizione nell'array
         if (i >= buffer_size - 1) { //se è maggiore o uguale della dimensione del buffer meno 1
@@ -59,13 +59,13 @@ extern bool v_str(const str v, str m) {
     if (!m) { //se il messaggio è nullo
         m = "Enter Something: "; //uso quello di default
     }
-    str s = in(NULL, m); //input con il messaggio
-    unsigned long long l = len(s); //variabile lunghezza stringa
+    str s = s_in(m); //input con il messaggio
+    size_t l = len(); //variabile lunghezza stringa
     if (l <= 0) { //se la lunghezza è zero o minore di zero
         fprintf(stderr, "Length is zero or less than zero\n");
         return '\0'; //ritorno il carattere nullo
     }
-    for (unsigned long long i = 0; i < l; i++) { //ciclo for per tutta la lunghezza della stringa
+    for (size_t i = 0; i < l; i++) { //ciclo for per tutta la lunghezza della stringa
         if (s[i] != v[i]) { //se due caratteri sono diversi
             return false; //ritorno false
         }
@@ -94,7 +94,7 @@ extern str ln(const str s) {
         free(buffer); //libero la memoria
         return "\0"; //ritorno il carattere nullo
     }
-    unsigned long long i = 0; //contatore
+    size_t i = 0; //contatore
     for (i = position; s[i] != '\n' && s[i]; i++) { //ciclo for per i vari caratteri
         buffer[i - position] = s[i]; //assegno il carattere alla sua posizione
         if (i >= buffer_size - 1) { //se è maggiore o uguale della dimensione del buffer meno 1
@@ -123,28 +123,66 @@ extern str ln(const str s) {
 
 //funzione lunghezza
 
-extern unsigned long long len(const str s) {
-    if (!s) { //se la stringa è nulla
-        fprintf(stderr, "String is NULL\n");
-        return '\0'; //ritorno il carattere nullo
-    }
+extern size_t len(void) {
     if (length == -1) { //se la lunghezza è -1
         fprintf(stderr, "EOF Reached\n");
         return '\0'; //ritorno il carattere nullo
     }
-    unsigned long long local_length = length; //assegno la lunghezza ad una variabile locale
+    size_t local_length = length; //assegno la lunghezza ad una variabile locale
     length = -1; //assegno -1 alla variabile globale lunghezza
     return local_length; //ritorno la lunghezza della stringa
 }
 
 //funzione cambio carattere
 
-extern void c_str(str s, const int p, const char c) {
+extern void c_str(str s, const size_t p, const char c) {
     if (!s) { //se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return; //non faccio altro
     }
     s[p] = c; //assegno il nuovo carattere alla sua posizione
+}
+
+extern void f_cat(const size_t n, const char sep, str fname, ...) {
+    va_list args; //creo una lista di argomenti
+    va_start(args, fname); //avvio la lista
+    if (!fname) { //se la stringa è nulla
+        fprintf(stderr, "String is NULL\n");
+        return; //non faccio altro
+    }
+    FILE *f = fopen(fname, "r"); //apro il file in modalità lettura
+    size_t j = 0; //contatore
+    size_t buffer_size = 4; //dimensione buffer
+    str buffer = malloc(sizeof(char) * buffer_size); //creo un array di caratteri allocando dinamicamente la memoria
+    if (!buffer) { //controllo se è nullo
+        fprintf(stderr, "Buffer is NULL\n");
+        free(buffer); //libero la memoria
+        return; //non faccio altro
+    }
+    for (size_t i = 0; j < n; i++) {
+        int c = fgetc(f); //prendo un carattere dal file
+        buffer[i] = c != EOF ? c : j < n - 1 ? sep : '\0'; //assegno il carattere alla sua posizione nell'array
+        if (i >= buffer_size - 1) { //se è maggiore o uguale della dimensione del buffer meno 1
+            buffer_size *= 2; //moltiplico la dimensione per 2
+            buffer = realloc(buffer, sizeof(char) * buffer_size); //rialloco la memoria
+        }
+        if (!buffer) { //controllo se è nullo
+            fprintf(stderr, "Buffer is NULL\n");
+            free(buffer); //libero la memoria
+            return; //non faccio altro
+        }
+        if (feof(f)) { //se ho raggiunto la fine del file
+            fclose(f); //chiudo il file
+            fname = va_arg(args, str); //prendo un elemento dalla lista
+            f = fopen(fname, "r"); //apro il file in modalità lettura
+            j++;
+        }
+    }
+    FILE *out = fopen("concat.txt", "w"); //apro il file in modalità scrittura
+    fputs(buffer, out); //scrivo nel file
+    fclose(out); //chiudo il file
+    va_end(args); //interrompo la lista
+    free(buffer); //libero la memoria
 }
 
 //funzione stringa

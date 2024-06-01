@@ -3,7 +3,7 @@
 int main(void) {
     str string = s_in("Provide a string: "); //prendo una stringa con la funzione input
     printf("%s\n", string); //stampo i vari caratteri presi in input
-    printf("Length: %llu\n", len(string)); //stampo la lunghezza della stringa
+    printf("Length: %zu\n", len()); //stampo la lunghezza della stringa
     char character = c(s_in("Provide a character: ")); //trasformo in carattere l'input
     printf("%c\n", character); //stampo il carattere
     int integer_number = i(s_in("Provide a number (integer): ")); //trasformo in intero l'input
@@ -34,7 +34,7 @@ int main(void) {
     str file_string = f_in(f); //leggo il contenuto del file e lo assegno ad una stringa
     fclose(f); //chiudo il file
     printf("%s\n", file_string); //stampo la stringa
-    printf("Length: %llu\n", len(file_string)); //stampo la lunghezza della stringa
+    printf("Length: %zu\n", len()); //stampo la lunghezza della stringa
     char file_character = c(file_string); //transformo in carattere il file
     printf("%c\n", file_character); //stampo il carattere
     int p = i(s_in("Inserisci la posizione del carattere: ")); //chiedo all'utente di inserire la posizione del carattere
@@ -56,5 +56,6 @@ int main(void) {
     printf("%s\n", line); //stampo la seconda riga
     line = ln(file_string); //richiamo la funzione
     printf("%s\n", line); //stampo la terza riga
+    f_cat(3, '\n', "f1.txt", "f2.txt", "f3.txt"); //concateno tra di loro più file usando \n come separatore
     return 0;
 }

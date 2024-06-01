@@ -24,15 +24,16 @@ static long long length = 0;
 
 //posizione carattere
 
-static unsigned long long position = 0;
+static size_t position = 0;
 
 //prototipi delle funzioni
 
 static str input(FILE *, str, va_list);
 extern bool v_str(const str, str);
 extern str ln(const str);
-extern unsigned long long len(const str);
-extern void c_str(str, const int, const char);
+extern size_t len(void);
+extern void c_str(str, const size_t, const char);
+extern void f_cat(const size_t, const char, str, ...);
 extern str in(FILE *, str, ...);
 extern char c(const str);
 extern int i(const str);
