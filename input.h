@@ -20,7 +20,7 @@ static str string = NULL;
 
 //lunghezza stringa
 
-static long long length = 0;
+static long length = 0;
 
 //posizione carattere
 
