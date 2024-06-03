@@ -4,11 +4,21 @@
 
 //macro funzione file
 
-#define f_in(f) in(f, NULL)
+#define f_in(f) \
+  in(f, NULL)
 
 //macro funzione stringa
 
-#define s_in(s, ...) in(NULL, s, ##__VA_ARGS__)
+#define s_in(s, ...) \
+  in(NULL, s, ##__VA_ARGS__)
+
+//macro funzione booleano
+
+#define b_in(s, ...)              \
+  ({                              \
+    char b = c(s_in(s "(y/N) ")); \
+    b == 'y' || b == 'Y';         \
+  })
 
 //tipo stringa
 

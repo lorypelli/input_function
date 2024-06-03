@@ -1,34 +1,34 @@
 #include "input.h"
 
 int main(void) {
-    str string = s_in("Provide a string: "); //prendo una stringa con la funzione input
+    str string = s_in("Inserisci una stringa: "); //prendo una stringa con la funzione input
     printf("%s\n", string); //stampo i vari caratteri presi in input
     printf("Length: %zu\n", len()); //stampo la lunghezza della stringa
-    char character = c(s_in("Provide a character: ")); //trasformo in carattere l'input
+    char character = c(s_in("Inserisci un carattere: ")); //trasformo in carattere l'input
     printf("%c\n", character); //stampo il carattere
-    int integer_number = i(s_in("Provide a number (integer): ")); //trasformo in intero l'input
+    int integer_number = i(s_in("Inserisci un numero (intero): ")); //trasformo in intero l'input
     printf("%d\n", integer_number); //stampo il numero intero
-    float floating_number = f(s_in("Provide a number (float): ")); //transformo in decimale l'input
+    float floating_number = f(s_in("Inserisci un numero (decimale): ")); //transformo in decimale l'input
     printf("%f\n", floating_number); //stampo il numero decimale
-    double double_number = d(s_in("Provide a number (double): ")); //transformo in decimale doppio l'input
+    double double_number = d(s_in("Inserisci un numero (decimale doppio): ")); //transformo in decimale doppio l'input
     printf("%lf\n", double_number); //stampo il numero decimale doppio
-    long long_number = l(s_in("Provide a number (long): ")); //transformo in intero lungo l'input
+    long long_number = l(s_in("Inserisci un numero (intero lungo): ")); //transformo in intero lungo l'input
     printf("%ld\n", long_number); //stampo il numero intero lungo
-    long long long_long_number = ll(s_in("Provide a number (long long): ")); //transformo in intero lungo lungo l'input
+    long long long_long_number = ll(s_in("Inserisci un numero (intero lungo lungo): ")); //transformo in intero lungo lungo l'input
     printf("%lld\n", long_long_number); //stampo il numero intero lungo lungo
-    bool valid = v_str("Validation Test!", NULL); //input con test di validazione
-    if (!valid) { //se non è valido
-        printf("Validation Not Passed!\n"); //stampo che non è valido
+    bool valid = v_str("Test di validazione!", NULL); //input con test di validazione
+    if (valid) { //se è valido
+        printf("Validazione passata!\n"); //stampo che è valido
     }
     else { //altrimenti
-        printf("Validation Passed!\n"); //stampo che è valido
+        printf("Validazione non passata\n"); //stampo che non è valido
     }
-    bool valid2 = v_str("Validation Test!", "Custom Message: "); //input con test di validazione e messaggio personalizzato
-    if (!valid2) { //se non è valido
-        printf("Validation Not Passed!\n"); //stampo che non è valido
+    bool valid2 = v_str("Test di validazione!", "Messaggio personalizzato: "); //input con test di validazione e messaggio personalizzato
+    if (valid2) { //se è valido
+        printf("Validazione passata!\n"); //stampo che è valido
     }
     else { //altrimenti
-        printf("Validation Passed!\n"); //stampo che è valido
+        printf("Validazione non passata\n"); //stampo che non è valido
     }
     FILE *f = fopen("test.txt", "r"); //apro il file
     str file_string = f_in(f); //leggo il contenuto del file e lo assegno ad una stringa
@@ -57,10 +57,17 @@ int main(void) {
     line = ln(file_string); //richiamo la funzione
     printf("%s\n", line); //stampo la terza riga
     f_cat("concat.txt", 3, '\n', "f1.txt", "f2.txt", "f3.txt"); //concateno tra loro più file usando \n come separatore
-    f = fopen("repeat.txt", "w"); //apro il file
+    f = fopen("repeat.txt", "a"); //apro il file
     r = c(s_in("Inserisci il carattere da ripetere: ")); //chiedo all'utente di inserire il carattere da ripetere
     size_t t = i(s_in("Inserisci quante volte ripeterlo: ")); //chiedo all'utente di inserire quante volte ripeterlo
     f_repeat(f, r, t); //ripeto quel carattere nel file tante volte
     fclose(f); //chiudo il file
+    bool b = b_in("Sei sicuro? "); //messaggio di test per gli input booleani
+    if (b) { //se risponde di sì
+        printf("L'utente ha risposto di sì\n"); //stampo che ha risposto di sì
+    }
+    else {
+        printf("L'utente ha risposto di no\n"); //stampo che ha risposto di no
+    }
     return 0;
 }
