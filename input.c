@@ -190,6 +190,13 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
 //funzione ripezione carattere
 
 extern void f_repeat(FILE *f, const char c, const size_t n) {
+    if (!f) { //se il file è nullo
+        #ifndef SUPPRESS_WARNINGS
+        printf("File is NULL, stdout will be used instead\n");
+        printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
+        #endif
+        f = stdout; //uso l'output della console
+    }
     for (size_t i = 0; i < n; i++) { //ciclo for per ripetere il carattere
         fputc(c, f); //metto un carattere alla volta nel file
     }
@@ -201,8 +208,8 @@ extern str in(FILE *f, str s, ...) {
     va_list args; //creo una lista di argomenti
     va_start(args, s); //avvio la lista
     if (!s && (!f || f == stdin)) { //se la stringa e il file sono nulli
-        f = stdin;
-        s = "Enter Something: ";
+        f = stdin; //uso l'input della console
+        s = "Enter Something: "; //uso il messaggio di default
     }
     str res = input(f, s, args); //chiamo la funzione input
     va_end(args); //interrompo la lista
