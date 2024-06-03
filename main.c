@@ -56,6 +56,6 @@ int main(void) {
     printf("%s\n", line); //stampo la seconda riga
     line = ln(file_string); //richiamo la funzione
     printf("%s\n", line); //stampo la terza riga
-    f_cat(3, '\n', "f1.txt", "f2.txt", "f3.txt"); //concateno tra di loro più file usando \n come separatore
+    f_cat("concat.txt", 3, '\n', "f1.txt", "f2.txt", "f3.txt"); //concateno tra loro più file usando \n come separatore
     return 0;
 }

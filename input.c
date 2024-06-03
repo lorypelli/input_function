@@ -143,7 +143,7 @@ extern void c_str(str s, const size_t p, const char c) {
     s[p] = c; //assegno il nuovo carattere alla sua posizione
 }
 
-extern void f_cat(const size_t n, const char sep, str fname, ...) {
+extern void f_cat(const str cname, const size_t n, const char sep, str fname, ...) {
     va_list args; //creo una lista di argomenti
     va_start(args, fname); //avvio la lista
     if (!fname) { //se la stringa è nulla
@@ -178,7 +178,7 @@ extern void f_cat(const size_t n, const char sep, str fname, ...) {
             j++;
         }
     }
-    FILE *out = fopen("concat.txt", "w"); //apro il file in modalità scrittura
+    FILE *out = fopen(cname, "w"); //apro il file in modalità scrittura
     fputs(buffer, out); //scrivo nel file
     fclose(out); //chiudo il file
     va_end(args); //interrompo la lista

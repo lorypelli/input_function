@@ -33,7 +33,7 @@ extern bool v_str(const str, str);
 extern str ln(const str);
 extern size_t len(void);
 extern void c_str(str, const size_t, const char);
-extern void f_cat(const size_t, const char, str, ...);
+extern void f_cat(const str, const size_t, const char, str, ...);
 extern str in(FILE *, str, ...);
 extern char c(const str);
 extern int i(const str);
