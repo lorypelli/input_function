@@ -41,10 +41,10 @@ int main(void) {
     char r = c(s_in("Inserisci il carattere da rimpiazzare: ")); //chiedo all'utente di inserire il carattere da rimpiazzare
     c_str(string, p, r); //modifico il carattere
     printf("%s\n", string); //stampo la stringa con il carattere modificato
-    int n = i(s_in("Inserisci un numero: ")); //chiedo all'utente di inserire un numero
+    int n = i(s_in("Inserisci la lunghezza dell'array: ")); //chiedo all'utente di inserire la lunghezza dell'array
     int arr[n]; //creo un array di n elementi
     for (int j = 0; j < n; j++) { //ciclo for per popolare l'array
-        arr[j] = i(s_in("Inserisci l'elemento %d: ", j + 1));
+        arr[j] = i(s_in("Inserisci l'elemento %d: ", j + 1)); //chiedo all'utente di inserire un elemento dell'array
         printf("%d\n", arr[j]); //stampo l'elemento
     }
     f = fopen("test_line.txt", "r"); //apro il file
@@ -57,5 +57,10 @@ int main(void) {
     line = ln(file_string); //richiamo la funzione
     printf("%s\n", line); //stampo la terza riga
     f_cat("concat.txt", 3, '\n', "f1.txt", "f2.txt", "f3.txt"); //concateno tra loro più file usando \n come separatore
+    f = fopen("repeat.txt", "w"); //apro il file
+    r = c(s_in("Inserisci il carattere da ripetere: ")); //chiedo all'utente di inserire il carattere da ripetere
+    size_t t = i(s_in("Inserisci quante volte ripeterlo: ")); //chiedo all'utente di inserire quante volte ripeterlo
+    f_repeat(f, r, t); //ripeto quel carattere nel file tante volte
+    fclose(f); //chiudo il file
     return 0;
 }

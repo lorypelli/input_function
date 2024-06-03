@@ -143,6 +143,8 @@ extern void c_str(str s, const size_t p, const char c) {
     s[p] = c; //assegno il nuovo carattere alla sua posizione
 }
 
+//funzione concatenazione file
+
 extern void f_cat(const str cname, const size_t n, const char sep, str fname, ...) {
     va_list args; //creo una lista di argomenti
     va_start(args, fname); //avvio la lista
@@ -183,6 +185,14 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
     fclose(out); //chiudo il file
     va_end(args); //interrompo la lista
     free(buffer); //libero la memoria
+}
+
+//funzione ripezione carattere
+
+extern void f_repeat(FILE *f, const char c, const size_t n) {
+    for (size_t i = 0; i < n; i++) { //ciclo for per ripetere il carattere
+        fputc(c, f); //metto un carattere alla volta nel file
+    }
 }
 
 //funzione stringa
