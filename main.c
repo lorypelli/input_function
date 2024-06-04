@@ -42,10 +42,10 @@ int main(void) {
     c_str(string, p, r); //modifico il carattere
     printf("%s\n", string); //stampo la stringa con il carattere modificato
     int n = i(s_in("Inserisci la lunghezza dell'array: ")); //chiedo all'utente di inserire la lunghezza dell'array
-    int arr[n]; //creo un array di n elementi
+    int int_arr[n]; //creo un array di n elementi
     for (int j = 0; j < n; j++) { //ciclo for per popolare l'array
-        arr[j] = i(s_in("Inserisci l'elemento %d: ", j + 1)); //chiedo all'utente di inserire un elemento dell'array
-        printf("%d\n", arr[j]); //stampo l'elemento
+        int_arr[j] = i(s_in("Inserisci l'elemento %d: ", j + 1)); //chiedo all'utente di inserire un elemento dell'array
+        printf("%d\n", int_arr[j]); //stampo l'elemento
     }
     f = fopen("test_line.txt", "r"); //apro il file
     file_string = f_in(f); //leggo il contenuto del file e lo assegno ad una stringa
@@ -66,8 +66,20 @@ int main(void) {
     if (b) { //se risponde di sì
         printf("L'utente ha risposto di sì\n"); //stampo che ha risposto di sì
     }
-    else {
+    else { //altrimenti
         printf("L'utente ha risposto di no\n"); //stampo che ha risposto di no
+    }
+    n = i(s_in("Inserisci la lunghezza dell'array: ")); //chiedo all'utente di inserire la lunghezza dell'array
+    str str_arr[n]; //creo un array di n elementi
+    for (int j = 0; j < n; j++) { //ciclo for per popolare l'array
+        b = b_in("Vuoi inserire l'elemento %d? ", j + 1); //chiedo all'utente se vuole continuare ad inserire gli elementi
+        if (b) { //se risponde di sì
+            str_arr[j] = s_in("Inserisci l'elemento %d: ", j + 1); //chiedo all'utente di inserire l'elemento
+        }
+        else { //altrimenti
+            str_arr[j] = ""; //stringa vuota
+        }
+        printf("%s\n", str_arr[j]); //stampo l'elemento
     }
     return 0;
 }

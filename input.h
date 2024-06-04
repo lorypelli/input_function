@@ -16,7 +16,7 @@
 
 #define b_in(s, ...)              \
   ({                              \
-    char b = c(s_in(s "(y/N) ")); \
+    char b = c(s_in(s "(y/N) ", ##__VA_ARGS__)); \
     b == 'y' || b == 'Y';         \
   })
 
