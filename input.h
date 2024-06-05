@@ -1,18 +1,21 @@
+#ifndef INPUT_H
+#define INPUT_H
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdarg.h>
 
-//macro funzione file
+// macro funzione file
 
 #define f_in(f) \
   in(f, NULL)
 
-//macro funzione stringa
+// macro funzione stringa
 
 #define s_in(s, ...) \
   in(NULL, s, ##__VA_ARGS__)
 
-//macro funzione booleano
+// macro funzione booleano
 
 #define b_in(s, ...)                             \
   ({                                             \
@@ -20,23 +23,23 @@
     b == 'y' || b == 'Y';                        \
   })
 
-//tipo stringa
+// tipo stringa
 
 typedef char *str;
 
-//puntatore stringa
+// puntatore stringa
 
 static str string = NULL;
 
-//lunghezza stringa
+// lunghezza stringa
 
 static long length = 0;
 
-//posizione carattere
+// posizione carattere
 
 static size_t position = 0;
 
-//prototipi delle funzioni
+// prototipi delle funzioni
 
 static str input(FILE *, str, va_list);
 extern bool v_str(const str, str);
@@ -52,3 +55,5 @@ extern long l(const str);
 extern long long ll(const str);
 extern float f(const str);
 extern double d(const str);
+
+#endif /* INPUT_H */
