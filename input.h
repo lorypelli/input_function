@@ -14,10 +14,10 @@
 
 //macro funzione booleano
 
-#define b_in(s, ...)              \
-  ({                              \
+#define b_in(s, ...)                             \
+  ({                                             \
     char b = c(s_in(s "(y/N) ", ##__VA_ARGS__)); \
-    b == 'y' || b == 'Y';         \
+    b == 'y' || b == 'Y';                        \
   })
 
 //tipo stringa

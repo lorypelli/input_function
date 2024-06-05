@@ -59,7 +59,7 @@ int main(void) {
     f_cat("concat.txt", 3, '\n', "f1.txt", "f2.txt", "f3.txt"); //concateno tra loro più file usando \n come separatore
     f = fopen("repeat.txt", "a"); //apro il file
     r = c(s_in("Inserisci il carattere da ripetere: ")); //chiedo all'utente di inserire il carattere da ripetere
-    size_t t = i(s_in("Inserisci quante volte ripeterlo: ")); //chiedo all'utente di inserire quante volte ripeterlo
+    int t = i(s_in("Inserisci quante volte ripeterlo: ")); //chiedo all'utente di inserire quante volte ripeterlo
     f_repeat(f, r, t); //ripeto quel carattere nel file tante volte
     fclose(f); //chiudo il file
     bool b = b_in("Sei sicuro? "); //messaggio di test per gli input booleani
@@ -74,7 +74,7 @@ int main(void) {
     for (int j = 0; j < n; j++) { //ciclo for per popolare l'array
         b = b_in("Vuoi inserire l'elemento %d? ", j + 1); //chiedo all'utente se vuole continuare ad inserire gli elementi
         if (b) { //se risponde di sì
-            str_arr[j] = s_in("Inserisci l'elemento %d: ", j + 1); //chiedo all'utente di inserire l'elemento
+            str_arr[j] = s_in("Inserisci l'elemento %d: ", j + 1); //chiedo all'utente di inserire un elemento dell'array
         }
         else { //altrimenti
             str_arr[j] = ""; //stringa vuota
