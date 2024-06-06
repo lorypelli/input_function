@@ -53,7 +53,7 @@ int main(void) {
     line = ln(file_string); // richiamo la funzione
     printf("%s\n", line); // stampo la terza riga
     f_cat("concat.txt", 3, '\n', "f1.txt", "f2.txt", "f3.txt"); // concateno tra loro più file usando \n come separatore
-    f_cpy("src.txt", "dest.txt"); //copio un file in un altro
+    f_cpy("src.txt", "dest.txt"); // copio un file in un altro
     FILE *f = fopen("repeat.txt", "a"); // apro il file
     r = c(s_in("Inserisci il carattere da ripetere: ")); // chiedo all'utente di inserire il carattere da ripetere
     int t = i(s_in("Inserisci quante volte ripeterlo: ")); // chiedo all'utente di inserire quante volte ripeterlo

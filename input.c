@@ -5,7 +5,7 @@
 // funzione input
 
 static str input(const str fname, str m, va_list args) {
-    FILE *f = fopen(fname, "r"); //apro il file in modalità lettura
+    FILE *f = fopen(fname, "r"); // apro il file in modalità lettura
     if (m && f) { // se il messaggio e il file non sono nulli
         #ifndef SUPPRESS_WARNINGS
         printf("You provided a file and a message, but the message will be ignored\n");
@@ -47,8 +47,8 @@ static str input(const str fname, str m, va_list args) {
     }
     buffer[i] = '\0'; // carattere terminatore della stringa
     length = i; // assegno la lunghezza della stringa
-    if (f != stdin) { //stdin non deve essere chiuso
-        fclose(f); //chiudo il file
+    if (f != stdin) { // stdin non deve essere chiuso
+        fclose(f); // chiudo il file
     }
     return buffer; // ritorno i vari caratteri del file
 }
@@ -147,19 +147,19 @@ extern void c_str(str s, const size_t p, const char c) {
     s[p] = c; // assegno il nuovo carattere alla sua posizione
 }
 
-//funzione copia file
+// funzione copia file
 
 extern void f_cpy(const str src, str dest) {
-    FILE *in = fopen(src, "r"); //apro il file in modalità lettura
-    FILE *out = fopen(dest, "w"); //apro il file in modalità scrittura
-    while (!feof(in)) {
-        int c = fgetc(in); //prendo un carattere dal file
-        if (c != EOF) { //controllo che il carattere non sia EOF
-            fputc(c, out); //inserisco il carattere nel file
+    FILE *in = fopen(src, "r"); // apro il file in modalità lettura
+    FILE *out = fopen(dest, "w"); // apro il file in modalità scrittura
+    while (!feof(in)) { // ciclo while fino alla fine del file
+        int c = fgetc(in); // prendo un carattere dal file
+        if (c != EOF) { // controllo che il carattere non sia EOF
+            fputc(c, out); // inserisco il carattere nel file
         }
     }
-    fclose(in); //chiudo il file
-    fclose(out); //chiudo il file
+    fclose(in); // chiudo il file
+    fclose(out); // chiudo il file
 }
 
 // funzione concatenazione file
@@ -180,7 +180,7 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
         free(buffer); // libero la memoria
         return; // non faccio altro
     }
-    for (size_t i = 0; j < n; i++) {
+    for (size_t i = 0; j < n; i++) { // ciclo for per i vari file
         int c = fgetc(f); // prendo un carattere dal file
         buffer[i] = c != EOF ? c : j < n - 1 ? sep : '\0'; // assegno il carattere alla sua posizione nell'array
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
