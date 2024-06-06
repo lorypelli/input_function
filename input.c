@@ -43,7 +43,7 @@ static str input(const str fname, str m, va_list args) {
             free(buffer); // libero la memoria
             return "\0"; // ritorno il carattere nullo
         }
-        c = fgetc(f); // prendo un'altro carattere dal file
+        c = fgetc(f); // prendo un altro carattere dal file
     }
     buffer[i] = '\0'; // carattere terminatore della stringa
     length = i; // assegno la lunghezza della stringa
@@ -145,6 +145,21 @@ extern void c_str(str s, const size_t p, const char c) {
         return; // non faccio altro
     }
     s[p] = c; // assegno il nuovo carattere alla sua posizione
+}
+
+//funzione copia file
+
+extern void f_cpy(const str src, str dest) {
+    FILE *in = fopen(src, "r"); //apro il file in modalità lettura
+    FILE *out = fopen(dest, "w"); //apro il file in modalità scrittura
+    while (!feof(in)) {
+        int c = fgetc(in); //prendo un carattere dal file
+        if (c != EOF) { //controllo che il carattere non sia EOF
+            fputc(c, out); //inserisco il carattere nel file
+        }
+    }
+    fclose(in); //chiudo il file
+    fclose(out); //chiudo il file
 }
 
 // funzione concatenazione file

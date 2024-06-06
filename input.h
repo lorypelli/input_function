@@ -47,6 +47,7 @@ extern str ln(const str);
 extern size_t len(void);
 extern void c_str(str, const size_t, const char);
 extern void f_cat(const str, const size_t, const char, str, ...);
+extern void f_cpy(const str, str);
 extern void f_repeat(FILE *, const char, const size_t);
 extern str in(const str, str, ...);
 extern char c(const str);
