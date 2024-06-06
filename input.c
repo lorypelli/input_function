@@ -4,17 +4,18 @@
 
 // funzione input
 
-static str input(FILE *f, str m, va_list args) {
-    if (m && f && f != stdin) { // se il messaggio e il file non sono nulli
+static str input(const str fname, str m, va_list args) {
+    FILE *f = fopen(fname, "r"); //apro il file in modalità lettura
+    if (m && f) { // se il messaggio e il file non sono nulli
         #ifndef SUPPRESS_WARNINGS
         printf("You provided a file and a message, but the message will be ignored\n");
         printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
         #endif
     }
-    else if (!m && (!f || f == stdin)) { // se il messaggio e il file sono nulli
+    else if (!m && !f) { // se il messaggio e il file sono nulli
         m = "Enter Something: "; // uso il messaggio di default
     }
-    if (!f || f == stdin) { // se il file è nullo o è stdin
+    if (!f) { // se il file è nullo
         #ifndef SUPPRESS_WARNINGS
         printf("File is NULL, stdin will be used instead\n");
         printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
@@ -46,6 +47,9 @@ static str input(FILE *f, str m, va_list args) {
     }
     buffer[i] = '\0'; // carattere terminatore della stringa
     length = i; // assegno la lunghezza della stringa
+    if (f != stdin) { //stdin non deve essere chiuso
+        fclose(f); //chiudo il file
+    }
     return buffer; // ritorno i vari caratteri del file
 }
 
@@ -148,8 +152,8 @@ extern void c_str(str s, const size_t p, const char c) {
 extern void f_cat(const str cname, const size_t n, const char sep, str fname, ...) {
     va_list args; // creo una lista di argomenti
     va_start(args, fname); // avvio la lista
-    if (!fname) { // se la stringa è nulla
-        fprintf(stderr, "String is NULL\n");
+    if (!fname) { // se il nome del file è nullo
+        fprintf(stderr, "File name is NULL\n");
         return; // non faccio altro
     }
     FILE *f = fopen(fname, "r"); // apro il file in modalità lettura
@@ -204,14 +208,10 @@ extern void f_repeat(FILE *f, const char c, const size_t n) {
 
 // funzione stringa
 
-extern str in(FILE *f, str s, ...) {
+extern str in(const str fname, str s, ...) {
     va_list args; // creo una lista di argomenti
     va_start(args, s); // avvio la lista
-    if (!s && (!f || f == stdin)) { // se la stringa e il file sono nulli
-        f = stdin; // uso l'input della console
-        s = "Enter Something: "; // uso il messaggio di default
-    }
-    str res = input(f, s, args); // chiamo la funzione input
+    str res = input(fname, s, args); // chiamo la funzione input
     va_end(args); // interrompo la lista
     return res; // ritorno il risultato
 }

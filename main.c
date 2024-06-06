@@ -30,9 +30,7 @@ int main(void) {
     else { // altrimenti
         printf("Validazione non passata\n"); // stampo che non è valido
     }
-    FILE *f = fopen("test.txt", "r"); // apro il file
-    str file_string = f_in(f); // leggo il contenuto del file e lo assegno ad una stringa
-    fclose(f); // chiudo il file
+    str file_string = f_in("test.txt"); // leggo il contenuto del file e lo assegno ad una stringa
     printf("%s\n", file_string); // stampo la stringa
     printf("Length: %zu\n", len()); // stampo la lunghezza della stringa
     char file_character = c(file_string); // transformo in carattere il file
@@ -47,9 +45,7 @@ int main(void) {
         int_arr[j] = i(s_in("Inserisci l'elemento %d: ", j + 1)); // chiedo all'utente di inserire un elemento dell'array
         printf("%d\n", int_arr[j]); // stampo l'elemento
     }
-    f = fopen("test_line.txt", "r"); // apro il file
-    file_string = f_in(f); // leggo il contenuto del file e lo assegno ad una stringa
-    fclose(f); // chiudo il file
+    file_string = f_in("test_line.txt"); // leggo il contenuto del file e lo assegno ad una stringa
     str line = ln(file_string); // funzione per stampare riga per riga la stringa
     printf("%s\n", line); // stampo la prima riga
     line = ln(file_string); // richiamo la funzione
@@ -57,7 +53,7 @@ int main(void) {
     line = ln(file_string); // richiamo la funzione
     printf("%s\n", line); // stampo la terza riga
     f_cat("concat.txt", 3, '\n', "f1.txt", "f2.txt", "f3.txt"); // concateno tra loro più file usando \n come separatore
-    f = fopen("repeat.txt", "a"); // apro il file
+    FILE *f = fopen("repeat.txt", "a"); // apro il file
     r = c(s_in("Inserisci il carattere da ripetere: ")); // chiedo all'utente di inserire il carattere da ripetere
     int t = i(s_in("Inserisci quante volte ripeterlo: ")); // chiedo all'utente di inserire quante volte ripeterlo
     f_repeat(f, r, t); // ripeto quel carattere nel file tante volte
