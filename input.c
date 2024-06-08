@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "input.h"
@@ -151,7 +152,15 @@ extern void c_str(str s, const size_t p, const char c) {
 
 extern void f_cpy(const str src, str dest) {
     FILE *in = fopen(src, "r"); // apro il file in modalità lettura
+    if (!in) { // se il file è nullo
+        fprintf(stderr, "File is NULL\n");
+        return; // non faccio altro
+    }
     FILE *out = fopen(dest, "w"); // apro il file in modalità scrittura
+    if (!out) { // se il file è nullo
+        fprintf(stderr, "File is NULL\n");
+        return; // non faccio altro
+    }
     while (!feof(in)) { // ciclo while fino alla fine del file
         int c = fgetc(in); // prendo un carattere dal file
         if (c != EOF) { // controllo che il carattere non sia EOF
@@ -172,6 +181,10 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
         return; // non faccio altro
     }
     FILE *f = fopen(fname, "r"); // apro il file in modalità lettura
+    if (!f) { // se il file è nullo
+        fprintf(stderr, "File is NULL\n");
+        return; // non faccio altro
+    }
     size_t j = 0; // contatore
     size_t buffer_size = 4; // dimensione buffer
     str buffer = malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
@@ -196,10 +209,18 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
             fclose(f); // chiudo il file
             fname = va_arg(args, str); // prendo un elemento dalla lista
             f = fopen(fname, "r"); // apro il file in modalità lettura
+            if (!f) { // se il file è nullo
+                fprintf(stderr, "File is NULL\n");
+                return; // non faccio altro
+            }
             j++;
         }
     }
     FILE *out = fopen(cname, "w"); // apro il file in modalità scrittura
+    if (!out) { // se il file è nullo
+        fprintf(stderr, "File is NULL\n");
+        return; // non faccio altro
+    }
     fputs(buffer, out); // scrivo nel file
     fclose(out); // chiudo il file
     va_end(args); // interrompo la lista
@@ -208,7 +229,8 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
 
 // funzione ripezione carattere
 
-extern void f_repeat(FILE *f, const char c, const size_t n) {
+extern void f_repeat(const str fname, const char c, const size_t n) {
+    FILE *f = fopen(fname, "a"); // apro il file in modalità scrittura
     if (!f) { // se il file è nullo
         #ifndef SUPPRESS_WARNINGS
         printf("File is NULL, stdout will be used instead\n");
@@ -218,6 +240,9 @@ extern void f_repeat(FILE *f, const char c, const size_t n) {
     }
     for (size_t i = 0; i < n; i++) { // ciclo for per ripetere il carattere
         fputc(c, f); // metto un carattere alla volta nel file
+    }
+    if (f != stdout) { // stdout non deve essere chiuso
+        fclose(f); // chiudo il file
     }
 }
 

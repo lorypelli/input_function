@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <stdio.h>
+#include <stddef.h>
 #include <stdbool.h>
 #include <stdarg.h>
 
@@ -48,7 +48,7 @@ extern size_t len(void);
 extern void c_str(str, const size_t, const char);
 extern void f_cat(const str, const size_t, const char, str, ...);
 extern void f_cpy(const str, str);
-extern void f_repeat(FILE *, const char, const size_t);
+extern void f_repeat(const str, const char, const size_t);
 extern str in(const str, str, ...);
 extern char c(const str);
 extern int i(const str);

@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "input.h"
 
 int main(void) {
@@ -54,11 +56,9 @@ int main(void) {
     printf("%s\n", line); // stampo la terza riga
     f_cat("concat.txt", 3, '\n', "f1.txt", "f2.txt", "f3.txt"); // concateno tra loro più file usando \n come separatore
     f_cpy("src.txt", "dest.txt"); // copio un file in un altro
-    FILE *f = fopen("repeat.txt", "a"); // apro il file
     r = c(s_in("Inserisci il carattere da ripetere: ")); // chiedo all'utente di inserire il carattere da ripetere
     int t = i(s_in("Inserisci quante volte ripeterlo: ")); // chiedo all'utente di inserire quante volte ripeterlo
-    f_repeat(f, r, t); // ripeto quel carattere nel file tante volte
-    fclose(f); // chiudo il file
+    f_repeat("repeat.txt", r, t); // ripeto quel carattere nel file tante volte
     bool b = b_in("Sei sicuro? "); // messaggio di test per gli input booleani
     if (b) { // se risponde di sì
         printf("L'utente ha risposto di sì\n"); // stampo che ha risposto di sì
