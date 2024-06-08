@@ -148,29 +148,6 @@ extern void c_str(str s, const size_t p, const char c) {
     s[p] = c; // assegno il nuovo carattere alla sua posizione
 }
 
-// funzione copia file
-
-extern void f_cpy(const str src, str dest) {
-    FILE *in = fopen(src, "r"); // apro il file in modalità lettura
-    if (!in) { // se il file è nullo
-        fprintf(stderr, "File is NULL\n");
-        return; // non faccio altro
-    }
-    FILE *out = fopen(dest, "w"); // apro il file in modalità scrittura
-    if (!out) { // se il file è nullo
-        fprintf(stderr, "File is NULL\n");
-        return; // non faccio altro
-    }
-    while (!feof(in)) { // ciclo while fino alla fine del file
-        int c = fgetc(in); // prendo un carattere dal file
-        if (c != EOF) { // controllo che il carattere non sia EOF
-            fputc(c, out); // inserisco il carattere nel file
-        }
-    }
-    fclose(in); // chiudo il file
-    fclose(out); // chiudo il file
-}
-
 // funzione concatenazione file
 
 extern void f_cat(const str cname, const size_t n, const char sep, str fname, ...) {
@@ -227,6 +204,29 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
     free(buffer); // libero la memoria
 }
 
+// funzione copia file
+
+extern void f_cpy(const str src, str dest) {
+    FILE *in = fopen(src, "r"); // apro il file in modalità lettura
+    if (!in) { // se il file è nullo
+        fprintf(stderr, "File is NULL\n");
+        return; // non faccio altro
+    }
+    FILE *out = fopen(dest, "w"); // apro il file in modalità scrittura
+    if (!out) { // se il file è nullo
+        fprintf(stderr, "File is NULL\n");
+        return; // non faccio altro
+    }
+    while (!feof(in)) { // ciclo while fino alla fine del file
+        int c = fgetc(in); // prendo un carattere dal file
+        if (c != EOF) { // controllo che il carattere non sia EOF
+            fputc(c, out); // inserisco il carattere nel file
+        }
+    }
+    fclose(in); // chiudo il file
+    fclose(out); // chiudo il file
+}
+
 // funzione ripezione carattere
 
 extern void f_repeat(const str fname, const char c, const size_t n) {
@@ -244,6 +244,46 @@ extern void f_repeat(const str fname, const char c, const size_t n) {
     if (f != stdout) { // stdout non deve essere chiuso
         fclose(f); // chiudo il file
     }
+}
+
+// funzione rimpiazza carattere
+
+extern str f_replace(const str fname, const char c, const char r) {
+    FILE *f = fopen(fname, "r"); // apro il file in modalità lettura
+    if (!f) { // se il file è nullo
+        fprintf(stderr, "File is NULL\n");
+        return "\0"; // ritorno il carattere nullo
+    }
+    int d = fgetc(f); // prendo un carattere dal file
+    size_t buffer_size = 4; // dimensione buffer
+    str buffer = malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
+    if (!buffer) { // controllo se è nullo
+        fprintf(stderr, "Buffer is NULL\n");
+        free(buffer); // libero la memoria
+        return "\0"; // ritorno il carattere nullo
+    }
+    size_t i = 0; // contatore
+    for (i = 0; !feof(f); i++) { // ciclo for per i vari caratteri
+        if (d == c) { // se il carattere è uguale a quello da rimpiazzare
+            buffer[i] = r; // assegno il carattere sostituito
+        }
+        else { // altrimenti
+            buffer[i] = d; // assegno il carattere normale
+        }
+        if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
+            buffer_size *= 2; // moltiplico la dimensione per 2
+            buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+        }
+        if (!buffer) { // controllo se è nullo
+            fprintf(stderr, "Buffer is NULL\n");
+            free(buffer); // libero la memoria
+            return "\0"; // ritorno il carattere nullo
+        }
+        d = fgetc(f); //prendo un altro carattere dal file
+    }
+    buffer[i] = '\0'; // carattere terminatore della stringa
+    fclose(f); // chiudo il file
+    return buffer; // ritorno i vari caratteri del file
 }
 
 // funzione stringa

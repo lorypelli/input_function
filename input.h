@@ -49,6 +49,7 @@ extern void c_str(str, const size_t, const char);
 extern void f_cat(const str, const size_t, const char, str, ...);
 extern void f_cpy(const str, str);
 extern void f_repeat(const str, const char, const size_t);
+extern str f_replace(const str, const char, const char);
 extern str in(const str, str, ...);
 extern char c(const str);
 extern int i(const str);

@@ -57,8 +57,10 @@ int main(void) {
     f_cat("concat.txt", 3, '\n', "f1.txt", "f2.txt", "f3.txt"); // concateno tra loro più file usando \n come separatore
     f_cpy("src.txt", "dest.txt"); // copio un file in un altro
     r = c(s_in("Inserisci il carattere da ripetere: ")); // chiedo all'utente di inserire il carattere da ripetere
-    int t = i(s_in("Inserisci quante volte ripeterlo: ")); // chiedo all'utente di inserire quante volte ripeterlo
-    f_repeat("repeat.txt", r, t); // ripeto quel carattere nel file tante volte
+    n = i(s_in("Inserisci quante volte ripeterlo: ")); // chiedo all'utente di inserire quante volte ripeterlo
+    f_repeat("repeat.txt", r, n); // ripeto quel carattere nel file tante volte
+    str new_content = f_replace("replace.txt", '!', '.'); // rimpiazzo un carattere dal file
+    printf("%s\n", new_content); // stampo il nuovo contenuto del file
     bool b = b_in("Sei sicuro? "); // messaggio di test per gli input booleani
     if (b) { // se risponde di sì
         printf("L'utente ha risposto di sì\n"); // stampo che ha risposto di sì
