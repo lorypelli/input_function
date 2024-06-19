@@ -1,0 +1,1 @@
+#define SUPPRESS_WARNINGS

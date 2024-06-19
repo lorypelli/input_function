@@ -3,6 +3,21 @@
 
 #include "input.h"
 
+#ifdef __has_include
+#if __has_include("config.h")
+#include "config.h"
+#ifndef SUPPRESS_WARNINGS
+#warning Define SUPPRESS_WARNINGS in the config.h header file to disable warnings
+#endif
+#else
+#warning Create config.h header file and define SUPPRESS_WARNINGS to disable warnings
+#endif
+#else
+#ifndef SUPPRESS_WARNINGS
+#warning Define SUPPRESS_WARNINGS to disable warnings
+#endif
+#endif
+
 // funzione input
 
 static str input(const str fname, str m, va_list args) {
