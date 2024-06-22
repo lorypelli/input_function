@@ -29,6 +29,10 @@ static str input(const str fname, str m, va_list args) {
         #endif
     }
     else if (!m && !f) { // se il messaggio e il file sono nulli
+        #ifndef SUPPRESS_WARNINGS
+        printf("Message is NULL, default one will be used instead\n");
+        printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
+        #endif
         m = "Enter Something: "; // uso il messaggio di default
     }
     if (!f) { // se il file è nullo
@@ -77,6 +81,10 @@ extern bool v_str(const str v, str m) {
         return '\0'; // ritorno il carattere nullo
     }
     if (!m) { // se il messaggio è nullo
+        #ifndef SUPPRESS_WARNINGS
+        printf("Message is NULL, default one will be used instead\n");
+        printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
+        #endif
         m = "Enter Something: "; // uso quello di default
     }
     str s = s_in(m); // input con il messaggio
@@ -244,8 +252,14 @@ extern void f_cpy(const str src, str dest) {
 
 // funzione ripezione carattere
 
-extern void f_repeat(const str fname, const char c, const size_t n) {
-    FILE *f = fopen(fname, "a"); // apro il file in modalità scrittura
+extern void f_repeat(const str fname, const char c, const size_t n, const bool b) {
+    FILE *f; // creo la variabile che conterrà il puntatore al file
+    if (b) { // se è vero
+        f = fopen(fname, "w"); // apro il file in modalità scrittura rimuovendo l'intero contenuto
+    }
+    else { // altrimenti
+        f = fopen(fname, "a"); // apro il file in modalità scrittura aggiungendo nuovo contenuto
+    }
     if (!f) { // se il file è nullo
         #ifndef SUPPRESS_WARNINGS
         printf("File is NULL, stdout will be used instead\n");
@@ -294,7 +308,7 @@ extern str f_replace(const str fname, const char c, const char r) {
             free(buffer); // libero la memoria
             return "\0"; // ritorno il carattere nullo
         }
-        d = fgetc(f); //prendo un altro carattere dal file
+        d = fgetc(f); // prendo un altro carattere dal file
     }
     buffer[i] = '\0'; // carattere terminatore della stringa
     fclose(f); // chiudo il file
@@ -309,6 +323,37 @@ extern str in(const str fname, str s, ...) {
     str res = input(fname, s, args); // chiamo la funzione input
     va_end(args); // interrompo la lista
     return res; // ritorno il risultato
+}
+
+// funzione select menu
+
+extern int sel_in(const size_t n, str m, str s, ...) {
+    va_list args; // creo una lista di argomenti
+    va_start(args, s); // avvio la lista
+    if (!s) { // se la stringa è nulla
+        fprintf(stderr, "String is NULL\n");
+        return '\0'; // ritorno il carattere nullo
+    }
+    if (!m) { // se il messaggio è nullo
+        #ifndef SUPPRESS_WARNINGS
+        printf("Message is NULL, default one will be used instead\n");
+        printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
+        #endif
+        m = "Select > "; // uso quello di default
+    }
+    for (size_t i = 0; i < n; i++) { // ciclo for per stampare le varie opzioni
+        printf("%zu: %s\n", i + 1, s); // stampo l'opzione inserita
+        s = va_arg(args, str); // prendo un elemento dalla lista
+    }
+    int c; // variabile che conterrà l'opzione scelta dall'utente
+    do {
+        c = i(s_in(m)); // chiedo all'utente l'opzione
+        if (c <= 0 || c > n) { // se è minore o uguale a zero o maggiore del numero di elementi nel menu
+            printf("Selected option doesn't exists, please try again!\n");
+        }
+    } while (c <= 0 || c > n); // ripeto fino a che non inserisce un numero valido
+    va_end(args); // interrompo la lista
+    return c; // ritorno l'opzione inserita dall'utente
 }
 
 // funzione carattere

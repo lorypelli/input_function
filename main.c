@@ -58,7 +58,7 @@ int main(void) {
     f_cpy("src.txt", "dest.txt"); // copio un file in un altro
     r = c(s_in("Inserisci il carattere da ripetere: ")); // chiedo all'utente di inserire il carattere da ripetere
     n = i(s_in("Inserisci quante volte ripeterlo: ")); // chiedo all'utente di inserire quante volte ripeterlo
-    f_repeat("repeat.txt", r, n); // ripeto quel carattere nel file tante volte
+    f_repeat("repeat.txt", r, n, false); // ripeto quel carattere nel file tante volte
     str new_content = f_replace("replace.txt", '!', '.'); // rimpiazzo un carattere dal file
     printf("%s\n", new_content); // stampo il nuovo contenuto del file
     bool b = b_in("Sei sicuro? "); // messaggio di test per gli input booleani
@@ -79,6 +79,36 @@ int main(void) {
             str_arr[j] = ""; // stringa vuota
         }
         printf("%s\n", str_arr[j]); // stampo l'elemento
+    }
+    int c = sel_in(3, NULL, "Prima opzione", "Seconda opzione", "Terza opzione"); // select menu
+    switch (c) { // switch per il valore di c
+        case 1: {
+            printf("Hai scelto la prima opzione\n");
+            break;
+        }
+        case 2: {
+            printf("Hai scelto la seconda opzione\n");
+            break;
+        }
+        case 3: {
+            printf("Hai scelto la terza opzione\n");
+            break;
+        }
+    }
+    c = sel_in(3, "Seleziona un'opzione > ", "Prima opzione", "Seconda opzione", "Terza opzione"); // select menu con messaggio personalizzato
+    switch (c) {
+        case 1: { // switch per il valore di c
+            printf("Hai scelto la prima opzione\n");
+            break;
+        }
+        case 2: {
+            printf("Hai scelto la seconda opzione\n");
+            break;
+        }
+        case 3: {
+            printf("Hai scelto la terza opzione\n");
+            break;
+        }
     }
     return 0;
 }
