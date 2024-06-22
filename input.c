@@ -209,7 +209,7 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
             fclose(f); // chiudo il file
             fname = va_arg(args, str); // prendo un elemento dalla lista
             f = fopen(fname, "r"); // apro il file in modalità lettura
-            if (!f) { // se il file è nullo
+            if (!f && j < n - 1) { // se il file è nullo
                 fprintf(stderr, "File is NULL\n");
                 return; // non faccio altro
             }
