@@ -56,12 +56,13 @@ static str input(const str fname, str m, va_list args) {
         buffer[i] = c; // assegno il carattere alla sua posizione nell'array
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
-            buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
-        }
-        if (!buffer) { // controllo se è nullo
-            fprintf(stderr, "Buffer is NULL\n");
-            free(buffer); // libero la memoria
-            return "\0"; // ritorno il carattere nullo
+            str temp_buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+            if (!temp_buffer) { // controllo se è nullo
+                fprintf(stderr, "Buffer is NULL\n");
+                free(buffer); // libero la memoria
+                return "\0"; // ritorno il carattere nullo
+            }
+            buffer = temp_buffer; // cambio il puntatore del buffer
         }
         c = fgetc(f); // prendo un altro carattere dal file
     }
@@ -127,12 +128,13 @@ extern str ln(const str s) {
         buffer[i - position] = s[i]; // assegno il carattere alla sua posizione
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
-            buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
-        }
-        if (!buffer) { // controllo se è nullo
-            fprintf(stderr, "Buffer is NULL\n");
-            free(buffer); // libero la memoria
-            return "\0"; // ritorno il carattere nullo
+            str temp_buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+            if (!temp_buffer) { // controllo se è nullo
+                fprintf(stderr, "Buffer is NULL\n");
+                free(buffer); // libero la memoria
+                return "\0"; // ritorno il carattere nullo
+            }
+            buffer = temp_buffer; // cambio il puntatore del buffer
         }
     }
     if (!s[i]) { // se la stringa è finita
@@ -198,12 +200,13 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
         buffer[i] = c != EOF ? c : j < n - 1 ? sep : '\0'; // assegno il carattere alla sua posizione nell'array
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
-            buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
-        }
-        if (!buffer) { // controllo se è nullo
-            fprintf(stderr, "Buffer is NULL\n");
-            free(buffer); // libero la memoria
-            return; // non faccio altro
+            str temp_buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+            if (!temp_buffer) { // controllo se è nullo
+                fprintf(stderr, "Buffer is NULL\n");
+                free(buffer); // libero la memoria
+                return; // non faccio altro
+            }
+            buffer = temp_buffer; // cambio il puntatore del buffer
         }
         if (feof(f)) { // se ho raggiunto la fine del file
             fclose(f); // chiudo il file
@@ -301,12 +304,13 @@ extern str f_replace(const str fname, const char c, const char r) {
         }
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
-            buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
-        }
-        if (!buffer) { // controllo se è nullo
-            fprintf(stderr, "Buffer is NULL\n");
-            free(buffer); // libero la memoria
-            return "\0"; // ritorno il carattere nullo
+            str temp_buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+            if (!temp_buffer) { // controllo se è nullo
+                fprintf(stderr, "Buffer is NULL\n");
+                free(buffer); // libero la memoria
+                return "\0"; // ritorno il carattere nullo
+            }
+            buffer = temp_buffer; // cambio il puntatore del buffer
         }
         d = fgetc(f); // prendo un altro carattere dal file
     }
