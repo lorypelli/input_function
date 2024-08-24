@@ -102,7 +102,7 @@ extern bool v_str(const str v, str m) {
     return true; // ritorno true alla fine per indicare che tutti i caratteri sono uguali
 }
 
-// funzione riga per rigar
+// funzione riga per riga
 
 extern str ln(const str s) {
     if (!s) { // se la stringa è nulla
