@@ -48,6 +48,7 @@ static str input(const str fname, str m, va_list args) {
     if (!buffer) { // controllo se è nullo
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
+        buffer = NULL; // assegno NULL al buffer
         return "\0"; // ritorno il carattere nullo
     }
     int c = fgetc(f); // prendo un carattere dal file
@@ -60,6 +61,7 @@ static str input(const str fname, str m, va_list args) {
             if (!temp_buffer) { // controllo se è nullo
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
+                buffer = NULL; // assegno NULL al buffer
                 return "\0"; // ritorno il carattere nullo
             }
             buffer = temp_buffer; // cambio il puntatore del buffer
@@ -121,6 +123,7 @@ extern str ln(const str s) {
     if (!buffer) { // controllo se è nullo
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
+        buffer = NULL; // assegno NULL al buffer
         return "\0"; // ritorno il carattere nullo
     }
     size_t i = 0; // contatore
@@ -132,6 +135,7 @@ extern str ln(const str s) {
             if (!temp_buffer) { // controllo se è nullo
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
+                buffer = NULL; // assegno NULL al buffer
                 return "\0"; // ritorno il carattere nullo
             }
             buffer = temp_buffer; // cambio il puntatore del buffer
@@ -193,6 +197,7 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
     if (!buffer) { // controllo se è nullo
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
+        buffer = NULL; // assegno NULL al buffer
         return; // non faccio altro
     }
     for (size_t i = 0; j < n; i++) { // ciclo for per i vari file
@@ -204,6 +209,7 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
             if (!temp_buffer) { // controllo se è nullo
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
+                buffer = NULL; // assegno NULL al buffer
                 return; // non faccio altro
             }
             buffer = temp_buffer; // cambio il puntatore del buffer
@@ -228,6 +234,7 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
     fclose(out); // chiudo il file
     va_end(args); // interrompo la lista
     free(buffer); // libero la memoria
+    buffer = NULL; // assegno NULL al buffer
 }
 
 // funzione copia file
@@ -292,6 +299,7 @@ extern str f_replace(const str fname, const char c, const char r) {
     if (!buffer) { // controllo se è nullo
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
+        buffer = NULL; // assegno NULL al buffer
         return "\0"; // ritorno il carattere nullo
     }
     size_t i = 0; // contatore
@@ -308,6 +316,7 @@ extern str f_replace(const str fname, const char c, const char r) {
             if (!temp_buffer) { // controllo se è nullo
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
+                buffer = NULL; // assegno NULL al buffer
                 return "\0"; // ritorno il carattere nullo
             }
             buffer = temp_buffer; // cambio il puntatore del buffer
@@ -362,78 +371,84 @@ extern int sel_in(const size_t n, str m, str s, ...) {
 
 // funzione carattere
 
-extern char c(const str s) {
+extern char c(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
     }
     char res = s[0]; // primo carattere dell'array
     free(s); // libero la memoria
+    s = NULL; // assegno NULL alla stringa
     length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
 // funzione intero
 
-extern int i(const str s) {
+extern int i(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
     }
     int res = atoi(s); // converto in int
     free(s); // libero la memoria
+    s = NULL; // assegno NULL alla stringa
     length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
 // funzione intero lungo
 
-extern long l(const str s) {
+extern long l(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
     }
     long res = atol(s); // converto in long
     free(s); // libero la memoria
+    s = NULL; // assegno NULL alla stringa
     length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
 // funzione intero lungo lungo
 
-extern long long ll(const str s) {
+extern long long ll(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
     }
     long long res = atoll(s); // converto in long long
     free(s); // libero la memoria
+    s = NULL; // assegno NULL alla stringa
     length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
 // funzione decimale
 
-extern float f(const str s) {
+extern float f(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
     }
     float res = atof(s); // converto in float
     free(s); // libero la memoria
+    s = NULL; // assegno NULL alla stringa
     length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
 // funzione decimale doppio
 
-extern double d(const str s) {
+extern double d(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
     }
     double res = atof(s); // converto in double
     free(s); // libero la memoria
+    s = NULL; // assegno NULL alla stringa
     length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
