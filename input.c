@@ -285,6 +285,18 @@ extern void f_repeat(const str fname, const char c, const size_t n, const bool b
     }
 }
 
+// funzione crea config
+
+extern void c_config(void) {
+    FILE *f = fopen("config.h", "w"); // apro il file in modalità scrittura
+    if (!f) { // se il file è nullo
+        fprintf(stderr, "File is NULL\n");
+        return; // non faccio altro
+    }
+    fputs(config, f); // inserisco la stringa nel file
+    fclose(f); // chiudo il file
+}
+
 // funzione rimpiazza carattere
 
 extern str f_replace(const str fname, const char c, const char r) {

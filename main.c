@@ -3,6 +3,7 @@
 #include "input.h"
 
 int main(void) {
+    c_config(); // funzione per creare il file di configurazione
     str string = s_in("Inserisci una stringa: "); // prendo una stringa con la funzione input
     printf("%s\n", string); // stampo i vari caratteri presi in input
     printf("Length: %zu\n", len()); // stampo la lunghezza della stringa
