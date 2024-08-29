@@ -38,10 +38,6 @@ static const char config[] = "#ifndef CONFIG_H\n"
 
 static str string = NULL;
 
-// lunghezza stringa
-
-static long length = 0;
-
 // posizione carattere
 
 static size_t position = 0;
@@ -51,7 +47,7 @@ static size_t position = 0;
 static str input(const str, str, va_list);
 extern bool v_str(const str, str);
 extern str ln(const str);
-extern size_t len(void);
+extern size_t len(const str);
 extern void c_str(str, const size_t, const char);
 extern void f_cat(const str, const size_t, const char, str, ...);
 extern void f_cpy(const str, str);

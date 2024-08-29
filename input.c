@@ -69,7 +69,6 @@ static str input(const str fname, str m, va_list args) {
         c = fgetc(f); // prendo un altro carattere dal file
     }
     buffer[i] = '\0'; // carattere terminatore della stringa
-    length = i; // assegno la lunghezza della stringa
     if (f != stdin) { // stdin non deve essere chiuso
         fclose(f); // chiudo il file
     }
@@ -91,7 +90,7 @@ extern bool v_str(const str v, str m) {
         m = "Enter Something: "; // uso quello di default
     }
     str s = s_in(m); // input con il messaggio
-    size_t l = len(); // variabile lunghezza stringa
+    size_t l = len(s); // variabile lunghezza stringa
     if (l <= 0) { // se la lunghezza è zero o minore di zero
         fprintf(stderr, "Length is zero or less than zero\n");
         return '\0'; // ritorno il carattere nullo
@@ -157,14 +156,10 @@ extern str ln(const str s) {
 
 // funzione lunghezza
 
-extern size_t len(void) {
-    if (length == -1) { // se la lunghezza è -1
-        fprintf(stderr, "EOF Reached\n");
-        return '\0'; // ritorno il carattere nullo
-    }
-    size_t local_length = length; // assegno la lunghezza ad una variabile locale
-    length = -1; // assegno -1 alla variabile globale lunghezza
-    return local_length; // ritorno la lunghezza della stringa
+extern size_t len(const str s) {
+    size_t i; // variabile lunghezza stringa
+    for (i = 0; s[i]; i++); // ciclo for per calcolare la lunghezza
+    return i; // ritorno la lunghezza
 }
 
 // funzione cambio carattere
@@ -391,7 +386,6 @@ extern char c(str s) {
     char res = s[0]; // primo carattere dell'array
     free(s); // libero la memoria
     s = NULL; // assegno NULL alla stringa
-    length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
@@ -405,7 +399,6 @@ extern int i(str s) {
     int res = atoi(s); // converto in int
     free(s); // libero la memoria
     s = NULL; // assegno NULL alla stringa
-    length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
@@ -419,7 +412,6 @@ extern long l(str s) {
     long res = atol(s); // converto in long
     free(s); // libero la memoria
     s = NULL; // assegno NULL alla stringa
-    length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
@@ -433,7 +425,6 @@ extern long long ll(str s) {
     long long res = atoll(s); // converto in long long
     free(s); // libero la memoria
     s = NULL; // assegno NULL alla stringa
-    length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
@@ -447,7 +438,6 @@ extern float f(str s) {
     float res = atof(s); // converto in float
     free(s); // libero la memoria
     s = NULL; // assegno NULL alla stringa
-    length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }
 
@@ -461,6 +451,5 @@ extern double d(str s) {
     double res = atof(s); // converto in double
     free(s); // libero la memoria
     s = NULL; // assegno NULL alla stringa
-    length = -1; // assegno -1 alla variabile globale lunghezza
     return res; // ritorno il risultato
 }

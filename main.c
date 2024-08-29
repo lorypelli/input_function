@@ -6,7 +6,7 @@ int main(void) {
     c_config(); // funzione per creare il file di configurazione
     str string = s_in("Inserisci una stringa: "); // prendo una stringa con la funzione input
     printf("%s\n", string); // stampo i vari caratteri presi in input
-    printf("Length: %zu\n", len()); // stampo la lunghezza della stringa
+    printf("Length: %zu\n", len(string)); // stampo la lunghezza della stringa
     char character = c(s_in("Inserisci un carattere: ")); // trasformo in carattere l'input
     printf("%c\n", character); // stampo il carattere
     int integer_number = i(s_in("Inserisci un numero (intero): ")); // trasformo in intero l'input
@@ -35,7 +35,7 @@ int main(void) {
     }
     str file_string = f_in("test.txt"); // leggo il contenuto del file e lo assegno ad una stringa
     printf("%s\n", file_string); // stampo la stringa
-    printf("Length: %zu\n", len()); // stampo la lunghezza della stringa
+    printf("Length: %zu\n", len(file_string)); // stampo la lunghezza della stringa
     char file_character = c(file_string); // transformo in carattere il file
     printf("%c\n", file_character); // stampo il carattere
     int p = i(s_in("Inserisci la posizione del carattere: ")); // chiedo all'utente di inserire la posizione del carattere
