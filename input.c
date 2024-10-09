@@ -44,7 +44,7 @@ static str input(const str fname, str m, va_list args) {
         vprintf(m, args); // stampo il messaggio dell'utente
     }
     size_t buffer_size = 4; // dimensione buffer
-    str buffer = malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
+    str buffer = (str)malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
     if (!buffer) { // controllo se è nullo
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
@@ -57,7 +57,7 @@ static str input(const str fname, str m, va_list args) {
         buffer[i] = c; // assegno il carattere alla sua posizione nell'array
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
-            str temp_buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+            str temp_buffer = (str)realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
             if (!temp_buffer) { // controllo se è nullo
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
@@ -118,7 +118,7 @@ extern str ln(const str s) {
         position = 0; // la posizione torna ad essere 0
     }
     size_t buffer_size = 4; // dimensione buffer
-    str buffer = malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
+    str buffer = (str)malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
     if (!buffer) { // controllo se è nullo
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
@@ -130,7 +130,7 @@ extern str ln(const str s) {
         buffer[i - position] = s[i]; // assegno il carattere alla sua posizione
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
-            str temp_buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+            str temp_buffer = (str)realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
             if (!temp_buffer) { // controllo se è nullo
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
@@ -188,7 +188,7 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
     }
     size_t j = 0; // contatore
     size_t buffer_size = 4; // dimensione buffer
-    str buffer = malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
+    str buffer = (str)malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
     if (!buffer) { // controllo se è nullo
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
@@ -200,7 +200,7 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
         buffer[i] = c != EOF ? c : j < n - 1 ? sep : '\0'; // assegno il carattere alla sua posizione nell'array
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
-            str temp_buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+            str temp_buffer = (str)realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
             if (!temp_buffer) { // controllo se è nullo
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
@@ -302,7 +302,7 @@ extern str f_replace(const str fname, const char c, const char r) {
     }
     int d = fgetc(f); // prendo un carattere dal file
     size_t buffer_size = 4; // dimensione buffer
-    str buffer = malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
+    str buffer = (str)malloc(sizeof(char) * buffer_size); // creo un array di caratteri allocando dinamicamente la memoria
     if (!buffer) { // controllo se è nullo
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
@@ -319,7 +319,7 @@ extern str f_replace(const str fname, const char c, const char r) {
         }
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
-            str temp_buffer = realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
+            str temp_buffer = (str)realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
             if (!temp_buffer) { // controllo se è nullo
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
