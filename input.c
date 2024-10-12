@@ -18,6 +18,24 @@
 #endif
 #endif
 
+
+// stringa config
+
+static const char config[] = "#ifndef CONFIG_H\n"
+                             "#define CONFIG_H\n"
+                             "\n"
+                             "#define SUPPRESS_WARNINGS\n"
+                             "\n"
+                             "#endif /* CONFIG_H */";
+
+// puntatore stringa
+
+static str string = NULL;
+
+// posizione carattere
+
+static size_t position = 0;
+
 // funzione input
 
 static str input(const str fname, str m, va_list args) {
@@ -77,7 +95,7 @@ static str input(const str fname, str m, va_list args) {
 
 // funzione validazione stringa
 
-extern bool v_str(const str v, str m) {
+bool v_str(const str v, str m) {
     if (!v) { // se la stringa di validazione è nulla
         fprintf(stderr, "Value is NULL\n");
         return '\0'; // ritorno il carattere nullo
@@ -105,7 +123,7 @@ extern bool v_str(const str v, str m) {
 
 // funzione riga per riga
 
-extern str ln(const str s) {
+str ln(const str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return "\0"; // ritorno il carattere nullo
@@ -154,7 +172,7 @@ extern str ln(const str s) {
 
 // funzione lunghezza
 
-extern size_t len(const str s) {
+size_t len(const str s) {
     size_t i; // variabile lunghezza stringa
     for (i = 0; s[i]; i++); // ciclo for per calcolare la lunghezza
     return i; // ritorno la lunghezza
@@ -162,7 +180,7 @@ extern size_t len(const str s) {
 
 // funzione cambio carattere
 
-extern void c_str(str s, const size_t p, const char c) {
+void c_str(str s, const size_t p, const char c) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return; // non faccio altro
@@ -172,7 +190,7 @@ extern void c_str(str s, const size_t p, const char c) {
 
 // funzione concatenazione file
 
-extern void f_cat(const str cname, const size_t n, const char sep, str fname, ...) {
+void f_cat(const str cname, const size_t n, const char sep, str fname, ...) {
     va_list args; // creo una lista di argomenti
     va_start(args, fname); // avvio la lista
     if (!fname) { // se il nome del file è nullo
@@ -232,7 +250,7 @@ extern void f_cat(const str cname, const size_t n, const char sep, str fname, ..
 
 // funzione copia file
 
-extern void f_cpy(const str src, str dest) {
+void f_cpy(const str src, str dest) {
     FILE *in = fopen(src, "r"); // apro il file in modalità lettura
     if (!in) { // se il file è nullo
         fprintf(stderr, "File is NULL\n");
@@ -255,7 +273,7 @@ extern void f_cpy(const str src, str dest) {
 
 // funzione ripezione carattere
 
-extern void f_repeat(const str fname, const char c, const size_t n, const bool b) {
+void f_repeat(const str fname, const char c, const size_t n, const bool b) {
     FILE *f; // creo la variabile che conterrà il puntatore al file
     if (b) { // se è vero
         f = fopen(fname, "w"); // apro il file in modalità scrittura rimuovendo l'intero contenuto
@@ -280,7 +298,7 @@ extern void f_repeat(const str fname, const char c, const size_t n, const bool b
 
 // funzione crea config
 
-extern void c_config(void) {
+void c_config(void) {
     FILE *f = fopen("config.h", "w"); // apro il file in modalità scrittura
     if (!f) { // se il file è nullo
         fprintf(stderr, "File is NULL\n");
@@ -292,7 +310,7 @@ extern void c_config(void) {
 
 // funzione rimpiazza carattere
 
-extern str f_replace(const str fname, const char c, const char r) {
+str f_replace(const str fname, const char c, const char r) {
     FILE *f = fopen(fname, "r"); // apro il file in modalità lettura
     if (!f) { // se il file è nullo
         fprintf(stderr, "File is NULL\n");
@@ -335,7 +353,7 @@ extern str f_replace(const str fname, const char c, const char r) {
 
 // funzione stringa
 
-extern str in(const str fname, str s, ...) {
+str in(const str fname, str s, ...) {
     va_list args; // creo una lista di argomenti
     va_start(args, s); // avvio la lista
     str res = input(fname, s, args); // chiamo la funzione input
@@ -345,7 +363,7 @@ extern str in(const str fname, str s, ...) {
 
 // funzione select menu
 
-extern int sel_in(const size_t n, str m, str s, ...) {
+int sel_in(const size_t n, str m, str s, ...) {
     va_list args; // creo una lista di argomenti
     va_start(args, s); // avvio la lista
     if (!s) { // se la stringa è nulla
@@ -376,7 +394,7 @@ extern int sel_in(const size_t n, str m, str s, ...) {
 
 // funzione carattere
 
-extern char c(str s) {
+char c(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
@@ -389,7 +407,7 @@ extern char c(str s) {
 
 // funzione intero
 
-extern int i(str s) {
+int i(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
@@ -402,7 +420,7 @@ extern int i(str s) {
 
 // funzione intero lungo
 
-extern long l(str s) {
+long l(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
@@ -415,7 +433,7 @@ extern long l(str s) {
 
 // funzione intero lungo lungo
 
-extern long long ll(str s) {
+long long ll(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
@@ -428,7 +446,7 @@ extern long long ll(str s) {
 
 // funzione decimale
 
-extern float f(str s) {
+float f(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
@@ -441,7 +459,7 @@ extern float f(str s) {
 
 // funzione decimale doppio
 
-extern double d(str s) {
+double d(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
         return '\0'; // ritorno il carattere nullo
