@@ -126,8 +126,8 @@ extern str ln(const str s) {
         return "\0"; // ritorno il carattere nullo
     }
     size_t i = 0; // contatore
-    for (i = position; s[i] != '\n' && s[i]; i++) { // ciclo for per i vari caratteri
-        buffer[i - position] = s[i]; // assegno il carattere alla sua posizione
+    for (i = 0; s[i + position] != '\n' && s[i + position]; i++) { // ciclo for per i vari caratteri
+        buffer[i] = s[i + position]; // assegno il carattere alla sua posizione
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
             buffer_size *= 2; // moltiplico la dimensione per 2
             str temp_buffer = (str)realloc(buffer, sizeof(char) * buffer_size); // rialloco la memoria
@@ -140,17 +140,14 @@ extern str ln(const str s) {
             buffer = temp_buffer; // cambio il puntatore del buffer
         }
     }
-    if (!s[i]) { // se la stringa è finita
+    if (!s[i + position]) { // se la stringa è finita
         position = 0; // la posizione torna ad essere 0
         string = NULL; // la variabile globale stringa diventa nulla
     }
-    else if (!string || s == string) { // se la variabile globale stringa è nulla o i due indirizzi di memoria sono uguali
-        position = i + 1; // assegno la posizione del carattere
+    else if (!string) { // se la variabile globale stringa è nulla
+        position += i + 1; // assegno la posizione del carattere
     }
     buffer[i] = '\0'; // carattere terminatore della stringa
-    if (!string || s == string) { // se la variabile globale stringa è nulla o i due indirizzi di memoria sono uguali
-        string = s; // assegno la variabile globale stringa
-    }
     return buffer; // ritorno riga per riga (chiamando più volte la funzione)
 }
 
