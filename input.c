@@ -146,6 +146,7 @@ extern str ln(const str s) {
     }
     else if (!string) { // se la variabile globale stringa è nulla
         position += i + 1; // assegno la posizione del carattere
+        string = s; // assegno la variabile globale stringa
     }
     buffer[i] = '\0'; // carattere terminatore della stringa
     return buffer; // ritorno riga per riga (chiamando più volte la funzione)
