@@ -18,15 +18,14 @@
 #endif
 #endif
 
-
 // stringa config
 
-static const char config[] = "#ifndef CONFIG_H\n"
-                             "#define CONFIG_H\n"
-                             "\n"
-                             "#define SUPPRESS_WARNINGS\n"
-                             "\n"
-                             "#endif /* CONFIG_H */";
+static const str config = "#ifndef CONFIG_H\n"
+                          "#define CONFIG_H\n"
+                          "\n"
+                          "#define SUPPRESS_WARNINGS\n"
+                          "\n"
+                          "#endif /* CONFIG_H */";
 
 // puntatore stringa
 
