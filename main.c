@@ -77,7 +77,7 @@ int main(void) {
         }
         printf("%s\n", str_arr[j]); // stampo l'elemento
     }
-    int c = sel_in(3, NULL, "Prima opzione", "Seconda opzione", "Terza opzione"); // select menu
+    size_t c = sel_in(3, NULL, "Prima opzione", "Seconda opzione", "Terza opzione"); // select menu
     switch (c) { // switch per il valore di c
         case 1: {
             printf("Hai scelto la prima opzione\n");

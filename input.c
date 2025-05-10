@@ -359,12 +359,12 @@ str in(const str fname, str s, ...) {
 
 // funzione select menu
 
-int sel_in(const size_t n, str m, str s, ...) {
+size_t sel_in(const size_t n, str m, str s, ...) {
     va_list args; // creo una lista di argomenti
     va_start(args, s); // avvio la lista
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
-        return -1; // ritorno -1 per indicare un errore
+        return 0; // ritorno 0 per indicare un errore
     }
     if (!m) { // se il messaggio è nullo
         #ifndef SUPPRESS_WARNINGS
