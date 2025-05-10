@@ -44,8 +44,7 @@ static str input(const str fname, str m, va_list args) {
         printf("You provided a file and a message, but the message will be ignored\n");
         printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
         #endif
-    }
-    else if (!m && !f) { // se il messaggio e il file sono nulli
+    } else if (!m && !f) { // se il messaggio e il file sono nulli
         #ifndef SUPPRESS_WARNINGS
         printf("Message is NULL, default one will be used instead\n");
         printf("Use SUPPRESS_WARNINGS macro to disable warnings\n");
@@ -66,7 +65,7 @@ static str input(const str fname, str m, va_list args) {
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
         buffer = NULL; // assegno NULL al buffer
-        return "\0"; // ritorno il carattere nullo
+        return ""; // ritorno una stringa vuota
     }
     int c = fgetc(f); // prendo un carattere dal file
     size_t i = 0; // contatore
@@ -79,7 +78,7 @@ static str input(const str fname, str m, va_list args) {
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
                 buffer = NULL; // assegno NULL al buffer
-                return "\0"; // ritorno il carattere nullo
+                return ""; // ritorno una stringa vuota
             }
             buffer = temp_buffer; // cambio il puntatore del buffer
         }
@@ -97,7 +96,7 @@ static str input(const str fname, str m, va_list args) {
 bool v_str(const str v, str m) {
     if (!v) { // se la stringa di validazione è nulla
         fprintf(stderr, "Value is NULL\n");
-        return '\0'; // ritorno il carattere nullo
+        return false; // ritorno false
     }
     if (!m) { // se il messaggio è nullo
         #ifndef SUPPRESS_WARNINGS
@@ -110,7 +109,7 @@ bool v_str(const str v, str m) {
     size_t l = len(s); // variabile lunghezza stringa
     if (l <= 0) { // se la lunghezza è zero o minore di zero
         fprintf(stderr, "Length is zero or less than zero\n");
-        return '\0'; // ritorno il carattere nullo
+        return false; // ritorno false
     }
     for (size_t i = 0; i < l; i++) { // ciclo for per tutta la lunghezza della stringa
         if (s[i] != v[i]) { // se due caratteri sono diversi
@@ -125,7 +124,7 @@ bool v_str(const str v, str m) {
 str ln(const str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
-        return "\0"; // ritorno il carattere nullo
+        return ""; // ritorno una stringa vuota
     }
     if (string && s != string) { // se la variabile globale stringa non è nulla e le due stringhe puntano ad indirizzi di memoria differenti
         #ifndef SUPPRESS_WARNINGS
@@ -140,7 +139,7 @@ str ln(const str s) {
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
         buffer = NULL; // assegno NULL al buffer
-        return "\0"; // ritorno il carattere nullo
+        return ""; // ritorno una stringa vuota
     }
     size_t i = 0; // contatore
     for (i = 0; s[i + position] != '\n' && s[i + position]; i++) { // ciclo for per i vari caratteri
@@ -152,7 +151,7 @@ str ln(const str s) {
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
                 buffer = NULL; // assegno NULL al buffer
-                return "\0"; // ritorno il carattere nullo
+                return ""; // ritorno una stringa vuota
             }
             buffer = temp_buffer; // cambio il puntatore del buffer
         }
@@ -160,8 +159,7 @@ str ln(const str s) {
     if (!s[i + position]) { // se la stringa è finita
         position = 0; // la posizione torna ad essere 0
         string = NULL; // la variabile globale stringa diventa nulla
-    }
-    else if (!string) { // se la variabile globale stringa è nulla
+    } else if (!string) { // se la variabile globale stringa è nulla
         position += i + 1; // assegno la posizione del carattere
         string = s; // assegno la variabile globale stringa
     }
@@ -313,7 +311,7 @@ str f_replace(const str fname, const char c, const char r) {
     FILE *f = fopen(fname, "r"); // apro il file in modalità lettura
     if (!f) { // se il file è nullo
         fprintf(stderr, "File is NULL\n");
-        return "\0"; // ritorno il carattere nullo
+        return ""; // ritorno una stringa vuota
     }
     int d = fgetc(f); // prendo un carattere dal file
     size_t buffer_size = 4; // dimensione buffer
@@ -322,14 +320,13 @@ str f_replace(const str fname, const char c, const char r) {
         fprintf(stderr, "Buffer is NULL\n");
         free(buffer); // libero la memoria
         buffer = NULL; // assegno NULL al buffer
-        return "\0"; // ritorno il carattere nullo
+        return ""; // ritorno una stringa vuota
     }
     size_t i = 0; // contatore
     for (i = 0; !feof(f); i++) { // ciclo for per i vari caratteri
         if (d == c) { // se il carattere è uguale a quello da rimpiazzare
             buffer[i] = r; // assegno il carattere sostituito
-        }
-        else { // altrimenti
+        } else { // altrimenti
             buffer[i] = d; // assegno il carattere normale
         }
         if (i >= buffer_size - 1) { // se è maggiore o uguale della dimensione del buffer meno 1
@@ -339,7 +336,7 @@ str f_replace(const str fname, const char c, const char r) {
                 fprintf(stderr, "Buffer is NULL\n");
                 free(buffer); // libero la memoria
                 buffer = NULL; // assegno NULL al buffer
-                return "\0"; // ritorno il carattere nullo
+                return ""; // ritorno una stringa vuota
             }
             buffer = temp_buffer; // cambio il puntatore del buffer
         }
@@ -367,7 +364,7 @@ int sel_in(const size_t n, str m, str s, ...) {
     va_start(args, s); // avvio la lista
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
-        return '\0'; // ritorno il carattere nullo
+        return -1; // ritorno -1 per indicare un errore
     }
     if (!m) { // se il messaggio è nullo
         #ifndef SUPPRESS_WARNINGS
@@ -409,7 +406,7 @@ char c(str s) {
 int i(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
-        return '\0'; // ritorno il carattere nullo
+        return 0; // ritorno 0 per indicare un errore
     }
     int res = atoi(s); // converto in int
     free(s); // libero la memoria
@@ -422,7 +419,7 @@ int i(str s) {
 long l(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
-        return '\0'; // ritorno il carattere nullo
+        return 0; // ritorno 0 per indicare un errore
     }
     long res = atol(s); // converto in long
     free(s); // libero la memoria
@@ -435,7 +432,7 @@ long l(str s) {
 long long ll(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
-        return '\0'; // ritorno il carattere nullo
+        return 0; // ritorno 0 per indicare un errore
     }
     long long res = atoll(s); // converto in long long
     free(s); // libero la memoria
@@ -448,7 +445,7 @@ long long ll(str s) {
 float f(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
-        return '\0'; // ritorno il carattere nullo
+        return 0; // ritorno 0 per indicare un errore
     }
     float res = atof(s); // converto in float
     free(s); // libero la memoria
@@ -461,7 +458,7 @@ float f(str s) {
 double d(str s) {
     if (!s) { // se la stringa è nulla
         fprintf(stderr, "String is NULL\n");
-        return '\0'; // ritorno il carattere nullo
+        return 0; // ritorno 0 per indicare un errore
     }
     double res = atof(s); // converto in double
     free(s); // libero la memoria

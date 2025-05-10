@@ -22,15 +22,13 @@ int main(void) {
     bool valid = v_str("Test di validazione!", NULL); // input con test di validazione
     if (valid) { // se è valido
         printf("Validazione passata!\n"); // stampo che è valido
-    }
-    else { // altrimenti
+    } else { // altrimenti
         printf("Validazione non passata\n"); // stampo che non è valido
     }
     bool valid2 = v_str("Test di validazione!", "Messaggio personalizzato: "); // input con test di validazione e messaggio personalizzato
     if (valid2) { // se è valido
         printf("Validazione passata!\n"); // stampo che è valido
-    }
-    else { // altrimenti
+    } else { // altrimenti
         printf("Validazione non passata\n"); // stampo che non è valido
     }
     str file_string = f_in("test.txt"); // leggo il contenuto del file e lo assegno ad una stringa
@@ -65,8 +63,7 @@ int main(void) {
     bool b = b_in("Sei sicuro? "); // messaggio di test per gli input booleani
     if (b) { // se risponde di sì
         printf("L'utente ha risposto di sì\n"); // stampo che ha risposto di sì
-    }
-    else { // altrimenti
+    } else { // altrimenti
         printf("L'utente ha risposto di no\n"); // stampo che ha risposto di no
     }
     n = i(s_in("Inserisci la lunghezza dell'array: ")); // chiedo all'utente di inserire la lunghezza dell'array
@@ -75,8 +72,7 @@ int main(void) {
         b = b_in("Vuoi inserire l'elemento %d? ", j + 1); // chiedo all'utente se vuole continuare ad inserire gli elementi
         if (b) { // se risponde di sì
             str_arr[j] = s_in("Inserisci l'elemento %d: ", j + 1); // chiedo all'utente di inserire un elemento dell'array
-        }
-        else { // altrimenti
+        } else { // altrimenti
             str_arr[j] = ""; // stringa vuota
         }
         printf("%s\n", str_arr[j]); // stampo l'elemento
